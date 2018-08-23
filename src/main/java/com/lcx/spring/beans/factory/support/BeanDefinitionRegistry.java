@@ -12,7 +12,17 @@ import com.lcx.spring.beans.BeanDefinition;
  */
 public interface BeanDefinitionRegistry {
 
+    /**
+     * 注册beanDefinition
+     * @param id beanId
+     * @param bd bean定义
+     */
     public void registerBeanDefinition(String id, BeanDefinition bd);
 
+    /**
+     * 获取bean定义
+     * @param beanId beanId
+     * @return bean定义
+     */
     BeanDefinition getBeanDefinition(String beanId);
 }

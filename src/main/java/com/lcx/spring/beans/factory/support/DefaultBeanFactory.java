@@ -26,6 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class DefaultBeanFactory implements BeanFactory,BeanDefinitionRegistry{
 
+    //装在bean定义的容器
     private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<String, BeanDefinition>(64);
 
     public void registerBeanDefinition(String id, BeanDefinition bd) {

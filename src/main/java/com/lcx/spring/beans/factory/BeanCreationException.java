@@ -3,6 +3,9 @@ package com.lcx.spring.beans.factory;
 
 import com.lcx.spring.beans.BeansException;
 
+/**
+ * bean创建异常
+ */
 public class BeanCreationException extends BeansException {
 	private String beanName;
 	public BeanCreationException(String msg) {

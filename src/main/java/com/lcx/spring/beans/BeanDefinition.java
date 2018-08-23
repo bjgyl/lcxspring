@@ -3,7 +3,7 @@ package com.lcx.spring.beans;/**
  */
 
 /**
- * <p>  </p>
+ * <p>bean定义</p>
  *
  * @author lichenxiang
  * @version : BeanDefinition.java, v 0.1 2018年06月27日 下午7:40:40 lichenxiang Exp $

@@ -18,7 +18,7 @@ import java.io.InputStream;
 import java.util.Iterator;
 
 /**
- * <p>  </p>
+ * <p>xmlbean定义读取器</p>
  *
  * @author lichenxiang
  * @version : XmlBeanDefinitionReader.java, v 0.1 2018年08月23日 下午4:05:05 lichenxiang Exp $

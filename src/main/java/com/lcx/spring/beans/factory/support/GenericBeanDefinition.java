@@ -5,7 +5,7 @@ package com.lcx.spring.beans.factory.support;/**
 import com.lcx.spring.beans.BeanDefinition;
 
 /**
- * <p>  </p>
+ * <p>bean定义</p>
  *
  * @author lichenxiang
  * @version : GenericBeanDefinition.java, v 0.1 2018年06月27日 下午7:53:53 lichenxiang Exp $
