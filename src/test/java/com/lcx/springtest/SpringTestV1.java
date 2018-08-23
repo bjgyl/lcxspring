@@ -6,6 +6,7 @@ import com.lcx.spring.beans.BeanDefinition;
 import com.lcx.spring.beans.factory.BeanFactory;
 import com.lcx.spring.beans.factory.support.DefaultBeanFactory;
 import com.lcx.springtest.bean.TestBean;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -37,7 +38,36 @@ public class SpringTestV1 {
         //判断 bean是否为空
         assertNotNull(testBean);
 
-
     }
 
+    @Test
+    public void testInvalidBean(){
+
+        BeanFactory beanFactory = new DefaultBeanFactory("springtestv1.xml");
+
+        try {
+            beanFactory.getBean("noExitBean");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+
+        Assert.fail("expect BeanCreationException");
+    }
+
+
+    @Test
+    public void testInvalidLoadXml(){
+
+        try {
+            BeanFactory beanFactory = new DefaultBeanFactory("noExit.xml");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+
+        Assert.fail("expect BeanCreationException");
+
+
+    }
 }
