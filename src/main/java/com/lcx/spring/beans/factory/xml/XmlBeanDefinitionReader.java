@@ -25,16 +25,21 @@ import java.util.Iterator;
  */
 public class XmlBeanDefinitionReader {
 
+    //bean的Id
     public static final String ID_ATTRIBUTE = "id";
 
+    //bean的全路径类名
     public static final String CLASS_ATTRIBUTE = "class";
 
+    //bean定义的注册类
     public BeanDefinitionRegistry registry;
 
+    //初始化xml读取器时 同时初始化bean定义注册类
     public XmlBeanDefinitionReader(BeanDefinitionRegistry registry) {
         this.registry = registry;
     }
 
+    //加载bean定义
     public void loadBeanDefinitions(String config) {
         InputStream is = null;
         try{
@@ -51,7 +56,9 @@ public class XmlBeanDefinitionReader {
                 String id = ele.attributeValue(ID_ATTRIBUTE);
                 String beanClassName = ele.attributeValue(CLASS_ATTRIBUTE);
                 BeanDefinition bd = new GenericBeanDefinition(id,beanClassName);
-                this.registry.registerBeanDefinition(id, bd);
+
+                //将组装后的bean定义注册到容器中
+                 this.registry.registerBeanDefinition(id, bd);
             }
         } catch (DocumentException e) {
             throw new BeanDefinitionStoreException("Don't load xml,before check retry",e);
