@@ -12,7 +12,7 @@ import com.lcx.spring.beans.BeanDefinition;
  */
 public interface BeanFactory {
 
-    BeanDefinition getBeanDefinition(String beanId);
-
     Object getBean(String beanId);
+
+    BeanDefinition getBeanDefinition(String beanId);
 }
