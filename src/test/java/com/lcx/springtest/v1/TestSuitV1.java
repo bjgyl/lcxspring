@@ -17,7 +17,7 @@ import org.junit.runners.Suite;
         BeanFactoryTest.class,
         ResourceTest.class
 })
-public class TestSuit {
+public class TestSuitV1 {
 
 
 }
