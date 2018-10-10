@@ -6,6 +6,8 @@ import com.lcx.spring.beans.factory.support.BeanDefinitionRegistry;
 import com.lcx.spring.beans.factory.support.DefaultBeanFactory;
 import com.lcx.spring.beans.factory.xml.XmlBeanDefinitionReader;
 import com.lcx.spring.context.ApplicationContext;
+import com.lcx.spring.core.io.ClassPathResource;
+import com.lcx.spring.core.io.Resource;
 
 /**
  * <p>  </p>
@@ -17,13 +19,15 @@ public class ClassPathXmlApplicationContext implements ApplicationContext {
 
     DefaultBeanFactory factory = null;
 
-    public ClassPathXmlApplicationContext(String config) {
+    public ClassPathXmlApplicationContext(String configFile) {
 
         factory = new DefaultBeanFactory();
 
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(factory);
 
-        reader.loadBeanDefinitions(config);
+        Resource resource = new ClassPathResource(configFile);
+
+        reader.loadBeanDefinitions(resource);
 
     }
 

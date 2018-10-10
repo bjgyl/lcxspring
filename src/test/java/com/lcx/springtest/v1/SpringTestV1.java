@@ -1,4 +1,4 @@
-package com.lcx.springtest;/**
+package com.lcx.springtest.v1;/**
  * Created by lichenxiang on 2018/6/27.
  */
 
@@ -6,6 +6,8 @@ import com.lcx.spring.beans.BeanDefinition;
 import com.lcx.spring.beans.factory.BeanFactory;
 import com.lcx.spring.beans.factory.support.DefaultBeanFactory;
 import com.lcx.spring.beans.factory.xml.XmlBeanDefinitionReader;
+import com.lcx.spring.core.io.ClassPathResource;
+import com.lcx.spring.core.io.Resource;
 import com.lcx.springtest.bean.TestBean;
 import org.junit.Assert;
 import org.junit.Before;
@@ -37,7 +39,9 @@ public class SpringTestV1 {
     public void beanFactoryTestV1(){
 
         //reader加载配置文件
-        reader.loadBeanDefinitions("springtestv1.xml");
+        Resource resource = new ClassPathResource("springtestv1.xml");
+
+        reader.loadBeanDefinitions(resource);
 
         //通过 beanFactory 获取 beanDefation
         BeanDefinition beanDefinition = factory.getBeanDefinition("testBean");
@@ -60,7 +64,7 @@ public class SpringTestV1 {
         try {
             factory.getBean("noExitBean");
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return;
         }
 
@@ -72,9 +76,12 @@ public class SpringTestV1 {
     public void testInvalidLoadXml(){
 
         try {
-            reader.loadBeanDefinitions("noExitXml.xml");
+
+            Resource resource = new ClassPathResource("noExitXml.xml");
+
+            reader.loadBeanDefinitions(resource);
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return;
         }
 

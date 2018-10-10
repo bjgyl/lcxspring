@@ -7,6 +7,7 @@ import com.lcx.spring.beans.factory.BeanDefinitionStoreException;
 import com.lcx.spring.beans.factory.BeanFactory;
 import com.lcx.spring.beans.factory.support.BeanDefinitionRegistry;
 import com.lcx.spring.beans.factory.support.GenericBeanDefinition;
+import com.lcx.spring.core.io.Resource;
 import com.lcx.spring.util.ClassUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -40,11 +41,10 @@ public class XmlBeanDefinitionReader {
     }
 
     //加载bean定义
-    public void loadBeanDefinitions(String config) {
+    public void loadBeanDefinitions(Resource resource) {
         InputStream is = null;
         try{
-            ClassLoader cl = ClassUtils.getDefaultClassLoader();
-            is = cl.getResourceAsStream(config);
+            is = resource.getInputStream();
 
             SAXReader reader = new SAXReader();
             Document doc = reader.read(is);
@@ -60,7 +60,7 @@ public class XmlBeanDefinitionReader {
                 //将组装后的bean定义注册到容器中
                  this.registry.registerBeanDefinition(id, bd);
             }
-        } catch (DocumentException e) {
+        } catch (Exception e) {
             throw new BeanDefinitionStoreException("Don't load xml,before check retry",e);
         }finally{
             if(is != null){

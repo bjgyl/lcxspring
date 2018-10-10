@@ -1,4 +1,4 @@
-package com.lcx.springtest;/**
+package com.lcx.springtest.v1;/**
  * Created by lichenxiang on 2018/8/23.
  */
 
