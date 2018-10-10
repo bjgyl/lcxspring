@@ -2,6 +2,8 @@ package com.lcx.spring.beans;/**
  * Created by lichenxiang on 2018/6/27.
  */
 
+import java.util.List;
+
 /**
  * <p>bean定义</p>
  *
@@ -54,4 +56,10 @@ public interface BeanDefinition {
      * @return
      */
     String getBeanClassName();
+
+    /**
+     * 属性列表
+     * @return
+     */
+    public List<PropertyValue> getPropertyValues();
 }

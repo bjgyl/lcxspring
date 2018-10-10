@@ -3,6 +3,10 @@ package com.lcx.spring.beans.factory.support;/**
  */
 
 import com.lcx.spring.beans.BeanDefinition;
+import com.lcx.spring.beans.PropertyValue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>bean定义</p>
@@ -21,6 +25,8 @@ public class GenericBeanDefinition implements BeanDefinition {
     private boolean prototype = false;
 
     private String scope = SCOPE_DEFAULT;
+
+    List<PropertyValue> propertyValues = new ArrayList<PropertyValue>();
 
     public GenericBeanDefinition(String id, String beanClassName) {
 
@@ -63,5 +69,9 @@ public class GenericBeanDefinition implements BeanDefinition {
         this.singleton = SCOPE_SINGLETON.equals(scope) || SCOPE_DEFAULT.equals(scope);
         this.prototype = SCOPE_PROTOTYPE.equals(scope);
 
+    }
+
+    public List<PropertyValue> getPropertyValues() {
+        return this.propertyValues;
     }
 }
