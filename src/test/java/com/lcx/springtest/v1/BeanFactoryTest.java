@@ -17,12 +17,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * <p>  </p>
+ * <p>BeanFactoryTest</p>
  *
  * @author lichenxiang
  * @version SpringTestV1: SpringTestV1.java, v 0.1 2018年06月27日 下午7:22:22 lichenxiang Exp $
  */
-public class SpringTestV1 {
+public class BeanFactoryTest {
 
     DefaultBeanFactory factory = null;
     XmlBeanDefinitionReader reader = null;

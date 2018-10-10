@@ -13,8 +13,10 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        ApplicationContextTestV2.class,
-        SpringTestV1.class })
+        ApplicationContextTestV1.class,
+        BeanFactoryTest.class,
+        ResourceTest.class
+})
 public class TestSuit {
 
 

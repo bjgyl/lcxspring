@@ -6,6 +6,7 @@ import com.lcx.spring.beans.BeanDefinition;
 import com.lcx.spring.beans.factory.BeanCreationException;
 import com.lcx.spring.beans.factory.BeanDefinitionStoreException;
 import com.lcx.spring.beans.factory.BeanFactory;
+import com.lcx.spring.beans.factory.config.ConfigurableBeanFactory;
 import com.lcx.spring.util.ClassUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -24,10 +25,13 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author lichenxiang
  * @version : DefaultBeanFactory.java, v 0.1 2018年06月27日 下午7:39:39 lichenxiang Exp $
  */
-public class DefaultBeanFactory implements BeanFactory,BeanDefinitionRegistry{
+public class DefaultBeanFactory implements ConfigurableBeanFactory,BeanDefinitionRegistry{
 
     //装在bean定义的容器
     private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<String, BeanDefinition>(64);
+
+    //beanClassLoader
+    private ClassLoader beanClassLoader;
 
     public void registerBeanDefinition(String id, BeanDefinition bd) {
         this.beanDefinitionMap.put(id,bd);
@@ -42,7 +46,7 @@ public class DefaultBeanFactory implements BeanFactory,BeanDefinitionRegistry{
         if(bd == null){
             throw new BeanCreationException("Bean Definition does not exist");
         }
-        ClassLoader cl = ClassUtils.getDefaultClassLoader();
+        ClassLoader cl = this.getBeanClassLoader();
         String beanClassName = bd.getBeanClassName();
         try {
             Class<?> clz = cl.loadClass(beanClassName);
@@ -50,5 +54,13 @@ public class DefaultBeanFactory implements BeanFactory,BeanDefinitionRegistry{
         } catch (Exception e) {
             throw new BeanCreationException("create bean for "+ beanClassName +" failed",e);
         }
+    }
+
+    public void setBeanClassLoader(ClassLoader beanClassLoader) {
+        this.beanClassLoader = beanClassLoader;
+    }
+
+    public ClassLoader getBeanClassLoader() {
+        return (this.beanClassLoader != null ? this.beanClassLoader : ClassUtils.getDefaultClassLoader());
     }
 }

@@ -15,24 +15,16 @@ import com.lcx.spring.core.io.Resource;
  * @author lichenxiang
  * @version : ClassPathXmlApplicationContext.java, v 0.1 2018年08月23日 下午4:45:45 lichenxiang Exp $
  */
-public class ClassPathXmlApplicationContext implements ApplicationContext {
+public class ClassPathXmlApplicationContext extends AbstractApplicationContext implements ApplicationContext {
 
-    DefaultBeanFactory factory = null;
 
     public ClassPathXmlApplicationContext(String configFile) {
-
-        factory = new DefaultBeanFactory();
-
-        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(factory);
-
-        Resource resource = new ClassPathResource(configFile);
-
-        reader.loadBeanDefinitions(resource);
-
+        super(configFile);
     }
 
-    public Object getBean(String beanId) {
+    @Override
+    protected Resource getResourceByPath(String path) {
 
-        return factory.getBean(beanId);
+        return new ClassPathResource(path,this.getBeanClassLoader());
     }
 }

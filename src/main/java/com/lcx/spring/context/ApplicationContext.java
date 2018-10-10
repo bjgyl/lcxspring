@@ -3,6 +3,7 @@ package com.lcx.spring.context;/**
  */
 
 import com.lcx.spring.beans.factory.BeanFactory;
+import com.lcx.spring.beans.factory.config.ConfigurableBeanFactory;
 
 /**
  * <p>  </p>
@@ -10,6 +11,6 @@ import com.lcx.spring.beans.factory.BeanFactory;
  * @author lichenxiang
  * @version : ApplicationContext.java, v 0.1 2018年08月23日 下午4:44:44 lichenxiang Exp $
  */
-public interface ApplicationContext extends BeanFactory{
+public interface ApplicationContext extends ConfigurableBeanFactory{
 
 }
