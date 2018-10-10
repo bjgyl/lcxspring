@@ -32,6 +32,9 @@ public class XmlBeanDefinitionReader {
     //bean的全路径类名
     public static final String CLASS_ATTRIBUTE = "class";
 
+    //scope属性
+    public static final String SCOPE_ATTRIBUTE = "scope";
+
     //bean定义的注册类
     public BeanDefinitionRegistry registry;
 
@@ -56,6 +59,11 @@ public class XmlBeanDefinitionReader {
                 String id = ele.attributeValue(ID_ATTRIBUTE);
                 String beanClassName = ele.attributeValue(CLASS_ATTRIBUTE);
                 BeanDefinition bd = new GenericBeanDefinition(id,beanClassName);
+
+                //设置scope
+                if (ele.attribute(SCOPE_ATTRIBUTE)!=null) {
+                    bd.setScope(ele.attributeValue(SCOPE_ATTRIBUTE));
+                }
 
                 //将组装后的bean定义注册到容器中
                  this.registry.registerBeanDefinition(id, bd);

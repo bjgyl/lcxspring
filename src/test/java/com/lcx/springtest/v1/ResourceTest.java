@@ -19,7 +19,7 @@ public class ResourceTest {
 
 		try {
 			is = r.getInputStream();
-			// 注意：这个测试其实并不充分！！
+
 			Assert.assertNotNull(is);
 		} finally {
 			if (is != null) {
@@ -38,7 +38,7 @@ public class ResourceTest {
 
 		try {
 			is = r.getInputStream();
-			// 注意：这个测试其实并不充分！！
+
 			Assert.assertNotNull(is);
 		} finally {
 			if (is != null) {

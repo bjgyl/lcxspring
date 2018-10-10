@@ -8,5 +8,9 @@
           class="com.lcx.springtest.bean.TestBean" >
     </bean>
 
+    <bean id="testBeanProtoType"
+          class="com.lcx.springtest.bean.TestBean" scope = "prototype">
+    </bean>
+
 </beans>
 

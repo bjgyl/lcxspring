@@ -13,8 +13,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * <p>BeanFactoryTest</p>
@@ -55,6 +54,53 @@ public class BeanFactoryTest {
         //判断 bean是否为空
         assertNotNull(testBean);
 
+    }
+
+    @Test
+    public void testGetBeanSingleton() {
+
+        reader.loadBeanDefinitions(new ClassPathResource("springtestv1.xml"));
+
+        BeanDefinition bd = factory.getBeanDefinition("testBean");
+
+        assertTrue(bd.isSingleton());
+
+        assertFalse(bd.isPrototype());
+
+        assertEquals(BeanDefinition.SCOPE_DEFAULT,bd.getScope());
+
+        assertEquals("com.lcx.springtest.bean.TestBean",bd.getBeanClassName());
+
+        TestBean testBean = (TestBean)factory.getBean("testBean");
+
+        assertNotNull(testBean);
+
+        TestBean testBean1 = (TestBean)factory.getBean("testBean");
+
+        assertTrue(testBean.equals(testBean1));
+    }
+
+
+    @Test
+    public void testGetBeanPrototype() {
+
+        reader.loadBeanDefinitions(new ClassPathResource("springtestv1.xml"));
+
+        BeanDefinition bd = factory.getBeanDefinition("testBeanProtoType");
+
+        assertFalse(bd.isSingleton());
+
+        assertTrue(bd.isPrototype());
+
+        assertEquals("com.lcx.springtest.bean.TestBean",bd.getBeanClassName());
+
+        TestBean testBean = (TestBean)factory.getBean("testBeanProtoType");
+
+        assertNotNull(testBean);
+
+        TestBean testBean1 = (TestBean)factory.getBean("testBeanProtoType");
+
+        assertTrue(!testBean.equals(testBean1));
     }
 
     @Test
