@@ -62,4 +62,22 @@ public interface BeanDefinition {
      * @return
      */
     public List<PropertyValue> getPropertyValues();
+
+    /**
+     * 获取构造参数
+     * @return
+     */
+    public ConstructorArgument getConstructorArgument();
+
+    /**
+     * 获取BeanID
+     * @return
+     */
+    public String getID();
+
+    /**
+     * 是否有构造参数
+     * @return
+     */
+    public boolean hasConstructorArgumentValues();
 }

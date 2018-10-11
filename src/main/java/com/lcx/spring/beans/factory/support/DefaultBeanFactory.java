@@ -9,6 +9,7 @@ import com.lcx.spring.beans.factory.BeanCreationException;
 import com.lcx.spring.beans.factory.BeanDefinitionStoreException;
 import com.lcx.spring.beans.factory.BeanFactory;
 import com.lcx.spring.beans.factory.config.ConfigurableBeanFactory;
+import com.lcx.spring.context.support.ConstructorResolver;
 import com.lcx.spring.util.ClassUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -85,13 +86,18 @@ public class DefaultBeanFactory extends DefaultSingletonBeanRegistry implements 
     }
 
     private Object instantiateBean(BeanDefinition bd) {
-        ClassLoader cl = this.getBeanClassLoader();
-        String beanClassName = bd.getBeanClassName();
-        try {
-            Class<?> clz = cl.loadClass(beanClassName);
-            return clz.newInstance();
-        } catch (Exception e) {
-            throw new BeanCreationException("create bean for "+ beanClassName +" failed",e);
+        if(bd.hasConstructorArgumentValues()){
+            ConstructorResolver resolver = new ConstructorResolver(this);
+            return resolver.autowireConstructor(bd);
+        }else{
+            ClassLoader cl = this.getBeanClassLoader();
+            String beanClassName = bd.getBeanClassName();
+            try {
+                Class<?> clz = cl.loadClass(beanClassName);
+                return clz.newInstance();
+            } catch (Exception e) {
+                throw new BeanCreationException("create bean for "+ beanClassName +" failed",e);
+            }
         }
     }
 

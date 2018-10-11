@@ -11,6 +11,7 @@ package com.lcx.springtest;
 
 import com.lcx.springtest.v1.TestSuitV1;
 import com.lcx.springtest.v2.TestSuitV2;
+import com.lcx.springtest.v3.TestSuitV3;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -22,7 +23,11 @@ import org.junit.runners.Suite;
  *
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({TestSuitV1.class,TestSuitV2.class})
+@Suite.SuiteClasses({
+            TestSuitV1.class,
+            TestSuitV2.class,
+            TestSuitV3.class
+})
 public class AllTest {
 
 }

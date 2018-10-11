@@ -9,6 +9,7 @@ package com.lcx.spring.beans.factory.support;
  * @Description: TODO
  */
 
+import com.lcx.spring.beans.factory.BeanFactory;
 import com.lcx.spring.beans.factory.config.RuntimeBeanReference;
 import com.lcx.spring.beans.factory.config.TypedStringValue;
 
@@ -21,10 +22,10 @@ import com.lcx.spring.beans.factory.config.TypedStringValue;
  */
 
 public class BeanDefinitionValueResolver {
-    private final DefaultBeanFactory beanFactory;
+    private final BeanFactory beanFactory;
 
     public BeanDefinitionValueResolver(
-            DefaultBeanFactory beanFactory) {
+            BeanFactory beanFactory) {
 
         this.beanFactory = beanFactory;
     }

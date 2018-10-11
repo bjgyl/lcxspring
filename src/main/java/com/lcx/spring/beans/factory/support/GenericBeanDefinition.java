@@ -3,6 +3,7 @@ package com.lcx.spring.beans.factory.support;/**
  */
 
 import com.lcx.spring.beans.BeanDefinition;
+import com.lcx.spring.beans.ConstructorArgument;
 import com.lcx.spring.beans.PropertyValue;
 
 import java.util.ArrayList;
@@ -27,6 +28,9 @@ public class GenericBeanDefinition implements BeanDefinition {
     private String scope = SCOPE_DEFAULT;
 
     List<PropertyValue> propertyValues = new ArrayList<PropertyValue>();
+
+    private ConstructorArgument constructorArgument = new ConstructorArgument();
+
 
     public GenericBeanDefinition(String id, String beanClassName) {
 
@@ -73,5 +77,17 @@ public class GenericBeanDefinition implements BeanDefinition {
 
     public List<PropertyValue> getPropertyValues() {
         return this.propertyValues;
+    }
+
+    public ConstructorArgument getConstructorArgument() {
+        return this.constructorArgument;
+    }
+
+    public String getID() {
+        return this.id;
+    }
+
+    public boolean hasConstructorArgumentValues() {
+        return !this.constructorArgument.isEmpty();
     }
 }
