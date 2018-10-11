@@ -3,6 +3,8 @@ package com.lcx.spring.beans.factory.support;/**
  */
 
 import com.lcx.spring.beans.BeanDefinition;
+import com.lcx.spring.beans.PropertyValue;
+import com.lcx.spring.beans.SimpleTypeConverter;
 import com.lcx.spring.beans.factory.BeanCreationException;
 import com.lcx.spring.beans.factory.BeanDefinitionStoreException;
 import com.lcx.spring.beans.factory.BeanFactory;
@@ -13,9 +15,13 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import java.beans.BeanInfo;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -68,6 +74,17 @@ public class DefaultBeanFactory extends DefaultSingletonBeanRegistry implements 
     }
 
     private Object createBean(BeanDefinition bd) {
+        //创建实例
+        Object bean = instantiateBean(bd);
+
+        //设置属性
+        populateBean(bd, bean);
+
+        return bean;
+
+    }
+
+    private Object instantiateBean(BeanDefinition bd) {
         ClassLoader cl = this.getBeanClassLoader();
         String beanClassName = bd.getBeanClassName();
         try {
@@ -77,4 +94,45 @@ public class DefaultBeanFactory extends DefaultSingletonBeanRegistry implements 
             throw new BeanCreationException("create bean for "+ beanClassName +" failed",e);
         }
     }
+
+    protected void populateBean(BeanDefinition bd, Object bean){
+        List<PropertyValue> pvs = bd.getPropertyValues();
+
+        if (pvs == null || pvs.isEmpty()) {
+            return;
+        }
+
+        BeanDefinitionValueResolver valueResolver = new BeanDefinitionValueResolver(this);
+        SimpleTypeConverter converter = new SimpleTypeConverter();
+        try{
+
+            //获取Bean接口 java.beans包
+            BeanInfo beanInfo = Introspector.getBeanInfo(bean.getClass());
+
+            //获取 所有的bean属性
+            PropertyDescriptor[] pds = beanInfo.getPropertyDescriptors();
+
+            for (PropertyValue pv : pvs){
+                String propertyName = pv.getName();
+                Object originalValue = pv.getValue();
+                //获取 属性类型 RuntimeBeanReference TypedStringValue
+                Object resolvedValue = valueResolver.resolveValueIfNecessary(originalValue);
+
+                for (PropertyDescriptor pd : pds) {
+                    if(pd.getName().equals(propertyName)){
+                        //按类型匹配
+                        Object convertedValue = converter.convertIfNecessary(resolvedValue, pd.getPropertyType());
+                        //写入属性
+                        pd.getWriteMethod().invoke(bean, convertedValue);
+                        break;
+                    }
+                }
+
+
+            }
+        }catch(Exception ex){
+            throw new BeanCreationException("Failed to obtain BeanInfo for class [" + bd.getBeanClassName() + "]", ex);
+        }
+    }
+
 }

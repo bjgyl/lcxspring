@@ -29,7 +29,7 @@ public class ApplicationContextTestV2 {
     public void testGetBeanProperty() {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("springtestv2.xml");
         TestBeanV2 testBeanV2 = (TestBeanV2)ctx.getBean("testBeanv2");
-        //当前运行不过去 因为并没有注入
+
         assertNotNull(testBeanV2.getUser());
         assertNotNull(testBeanV2.getAge());
 
